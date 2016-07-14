@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AYPQuiz</string>
+    <string name="true_button">TRUE</string>
+    <string name="false_button">FALSE</string>
+    <string name="Incorrect">Incorrect</string>
+    <string name="Corrected">Corrected</string>
+    <string name="next_button">NEXT</string>
+
+    <string name="question1_nile">The longest river in the world is Nile?</string>      <!-- true -->
+    <string name="question2_rawin">Rawin is Happy?</string>                             <!-- true -->
+    <string name="question3_math">2+2 = 5?</string>                                     <!-- false -->
+    <string name="question4_mars">Mars does not have moon?</string>                     <!-- false -->
+
+</resources>
