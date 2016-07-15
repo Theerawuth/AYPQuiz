@@ -11,6 +11,7 @@ public class QuizActivity extends AppCompatActivity {
     Button trueButton;
     Button falseButton;
     Button nextButton;
+    Button previousButton;
     TextView questionText;
 
     Question[] questions = new Question[]{
@@ -30,11 +31,23 @@ public class QuizActivity extends AppCompatActivity {
         trueButton = (Button)findViewById(R.id.true_button);
         falseButton = (Button)findViewById(R.id.false_button);
         nextButton = (Button)findViewById(R.id.next_button);
+        previousButton = (Button)findViewById(R.id.previous_button);
         questionText = (TextView) findViewById(R.id.text_question);
 
         currentIndex = 0;
         updateQuestion();
         questionText.setText(questions[currentIndex].getQuestionId());
+
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // click previous
+                currentIndex--;
+                if(currentIndex <0) currentIndex = questions.length-1;
+                questionText.setText(questions[currentIndex].getQuestionId());
+                updateQuestion();
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

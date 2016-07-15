@@ -5,6 +5,7 @@
     <string name="Incorrect">Incorrect</string>
     <string name="Corrected">Corrected</string>
     <string name="next_button">NEXT</string>
+    <string name="previous_button">Previous</string>
 
     <string name="question1_nile">The longest river in the world is Nile?</string>      <!-- true -->
     <string name="question2_rawin">Rawin is Happy?</string>                             <!-- true -->
