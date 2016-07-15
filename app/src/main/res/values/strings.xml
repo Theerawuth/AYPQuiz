@@ -6,10 +6,16 @@
     <string name="Corrected">Corrected</string>
     <string name="next_button">NEXT</string>
     <string name="previous_button">Previous</string>
+    <string name="cheat_button">Cheat</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="text_answer">Answer Here!</string>
+    <string name="answer_is_true">answer_is_true</string>
+    <string name="answer_is_false">answer_is_false</string>
 
     <string name="question1_nile">The longest river in the world is Nile?</string>      <!-- true -->
     <string name="question2_rawin">Rawin is Happy?</string>                             <!-- true -->
     <string name="question3_math">2+2 = 5?</string>                                     <!-- false -->
-    <string name="question4_mars">Mars does not have moon?</string>                     <!-- false -->
+    <string name="question4_mars">Mars does not have moon?</string>
+    <string name="cheater_text">You are cheater!! :D</string>                     <!-- false -->
 
 </resources>

@@ -1,5 +1,7 @@
 package com.augmentis.ayp.aypquiz;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CHEATED = 30384;
     Button trueButton;
     Button falseButton;
     Button nextButton;
     Button previousButton;
+    Button cheatButton;
     TextView questionText;
+
 
     Question[] questions = new Question[]{
             new Question(R.string.question1_nile, true),
@@ -27,6 +33,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "AYPQUIZ";
     private static final String INDEX = "INDEX";
+    private boolean isCheater;
 
     @Override
     protected void onStop() {
@@ -74,6 +81,7 @@ public class QuizActivity extends AppCompatActivity {
         falseButton = (Button)findViewById(R.id.false_button);
         nextButton = (Button)findViewById(R.id.next_button);
         previousButton = (Button)findViewById(R.id.previous_button);
+        cheatButton = (Button)findViewById(R.id.cheat_button);
         questionText = (TextView) findViewById(R.id.text_question);
 
 
@@ -82,29 +90,42 @@ public class QuizActivity extends AppCompatActivity {
         }else{
             currentIndex=0;
         }
+
+        resetCheater();
         updateQuestion();
 
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // click previous
+            public void onClick(View v) {           // click previous
                 currentIndex--;
-                if(currentIndex <0) currentIndex = questions.length-1;
+                if(currentIndex <0)
+                    currentIndex = questions.length-1;
                 questionText.setText(questions[currentIndex].getQuestionId());
+                resetCheater();
                 updateQuestion();
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener(new View.OnClickListener() {      // click next
             @Override
             public void onClick(View v) {
-                // click next
                 currentIndex++;
-                if(currentIndex == questions.length) currentIndex = 0;
+                if(currentIndex == questions.length)
+                    currentIndex = 0;
                 questionText.setText(questions[currentIndex].getQuestionId());
+                resetCheater();
                 updateQuestion();
             }
         });
+
+        cheatButton.setOnClickListener(new View.OnClickListener(){      //click cheat
+            @Override
+            public void onClick(View v) {
+                Intent intent = CheatActivity.createIntent(QuizActivity.this, getCurrentAnswer());
+                startActivityForResult(intent, REQUEST_CHEATED);
+                }
+        });
+
 
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,17 +145,52 @@ public class QuizActivity extends AppCompatActivity {
         Log.d(TAG, "On Create");
     }
 
-    public void checkAnswer(boolean answer){
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CHEATED) {
+            if (dataIntent == null) {
+                return;
+            }
+
+            isCheater = CheatActivity.wasCheated(dataIntent);
+        }
+    }
+
+
+    private boolean getCurrentAnswer() {
+        return questions[currentIndex].getAnswer();
+    }
+
+    public void checkAnswer(boolean answer) {
 
         boolean correctAnswer = questions[currentIndex].getAnswer();
 
-        if(answer == correctAnswer){
-            Toast.makeText(QuizActivity.this, R.string.Corrected, Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(QuizActivity.this, R.string.Incorrect, Toast.LENGTH_SHORT).show();
-        }
+        int result;
 
+        if (isCheater) {
+            result = R.string.cheater_text;
+
+        } else {
+
+            if (answer == correctAnswer) {
+                result = R.string.Corrected;
+            } else {
+                result = R.string.Incorrect;
+            }
+
+        }
+        Toast.makeText(QuizActivity.this, result, Toast.LENGTH_SHORT).show();
     }
+
+    private void resetCheater(){
+        isCheater = false;
+    }
+
     public void updateQuestion(){
         questionText.setText(questions[currentIndex].getQuestionId());
     }
