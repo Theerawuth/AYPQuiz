@@ -21,13 +21,13 @@ public class QuizActivity extends AppCompatActivity {
     TextView questionText;
 
 
-    static Question[] questions = new Question[]{
-            new Question(R.string.question1_nile, true),
-            new Question(R.string.question2_rawin, true),
-            new Question(R.string.question3_math, false),
-            new Question(R.string.question4_mars, false),
-            new Question(R.string.question5_mars, true),
-            new Question(R.string.question6_mars, false),
+        static Question[] questions = new Question[]{
+                new Question(R.string.question1_nile, true),
+                new Question(R.string.question2_rawin, true),
+                new Question(R.string.question3_math, false),
+                new Question(R.string.question4_mars, false),
+                new Question(R.string.question5_mars, true),
+                new Question(R.string.question6_mars, false),
     };
 
     int currentIndex;
@@ -92,7 +92,7 @@ public class QuizActivity extends AppCompatActivity {
             currentIndex=0;
         }
 
-//        resetCheater();
+       // resetCheater();
         updateQuestion();
 
         previousButton.setOnClickListener(new View.OnClickListener() {
