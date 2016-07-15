@@ -2,7 +2,6 @@ package com.augmentis.ayp.aypquiz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,11 +21,13 @@ public class QuizActivity extends AppCompatActivity {
     TextView questionText;
 
 
-    Question[] questions = new Question[]{
+    static Question[] questions = new Question[]{
             new Question(R.string.question1_nile, true),
             new Question(R.string.question2_rawin, true),
             new Question(R.string.question3_math, false),
             new Question(R.string.question4_mars, false),
+            new Question(R.string.question5_mars, true),
+            new Question(R.string.question6_mars, false),
     };
 
     int currentIndex;
@@ -91,7 +92,7 @@ public class QuizActivity extends AppCompatActivity {
             currentIndex=0;
         }
 
-        resetCheater();
+//        resetCheater();
         updateQuestion();
 
         previousButton.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +147,10 @@ public class QuizActivity extends AppCompatActivity {
     }
 
 
+    private boolean getCurrentAnswer() {
+        return questions[currentIndex].getAnswer();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
         if (resultCode != Activity.RESULT_OK) {
@@ -158,12 +163,8 @@ public class QuizActivity extends AppCompatActivity {
             }
 
             isCheater = CheatActivity.wasCheated(dataIntent);
+            questions[currentIndex].setCheated(true);
         }
-    }
-
-
-    private boolean getCurrentAnswer() {
-        return questions[currentIndex].getAnswer();
     }
 
     public void checkAnswer(boolean answer) {
@@ -172,7 +173,7 @@ public class QuizActivity extends AppCompatActivity {
 
         int result;
 
-        if (isCheater) {
+        if (questions[currentIndex].getCheated()) {
             result = R.string.cheater_text;
 
         } else {

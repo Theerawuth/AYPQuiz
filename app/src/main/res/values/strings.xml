@@ -15,7 +15,10 @@
     <string name="question1_nile">The longest river in the world is Nile?</string>      <!-- true -->
     <string name="question2_rawin">Rawin is Happy?</string>                             <!-- true -->
     <string name="question3_math">2+2 = 5?</string>                                     <!-- false -->
-    <string name="question4_mars">Mars does not have moon?</string>
-    <string name="cheater_text">You are cheater!! :D</string>                     <!-- false -->
+    <string name="question4_mars">Mars does not have moon?</string>                     <!-- false -->
+    <string name="question5_mars">4+5 = 9?</string>                                     <!-- true -->
+    <string name="question6_mars">10+1 = 10?</string>                                   <!-- false -->
+
+    <string name="cheater_text">You are cheater!! :D</string>                           <!-- false -->
 
 </resources>
